@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Missiyalar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      margin: 0;
+      padding-bottom: 100px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .mission {
+      background-color: #1e1e1e;
+      border-radius: 15px;
+      margin: 20px;
+      padding: 20px;
+      box-shadow: 0 0 10px #333;
+    }
+
+    .mission h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .mission p {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .mission button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 5px 0;
+    }
+
+    .mission button:hover {
+      background-color: #0056b3;
+    }
+
+    #balance {
+      text-align: center;
+      font-size: 20px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #111;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      border-top: 1px solid #333;
+      z-index: 999;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar img {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Missiyalar</h1>
+  <div id="balance">Balans: 0.0000 UC</div>
+
+  <div class="mission" id="mission1">
+    <h2>Telegram Kanal: TexnoYangiliklar</h2>
+    <p>Yangi texnologiyalar va AI yangiliklaridan boxabar bo‘lish uchun kanalimizga qo‘shiling!</p>
+    <button onclick="subscribe('https://t.me/texnoyangiliklar', 'check1')">Obuna bo‘lish</button>
+    <button id="check1" style="display:none;" onclick="confirmSubscription(this)">Tekshirish</button>
+  </div>
+
+  <div class="mission" id="mission2">
+    <h2>Telegram Kanal: PUBG Uzbekistan</h2>
+    <p>PUBG yangiliklari, turnirlar va UC yutish imkoniyatlari shu yerda!</p>
+    <button onclick="subscribe('https://t.me/pubguz_official', 'check2')">Obuna bo‘lish</button>
+    <button id="check2" style="display:none;" onclick="confirmSubscription(this)">Tekshirish</button>
+  </div>
+
+  <script>
+    function subscribe(link, checkId) {
+      window.open(link, '_blank');
+      document.getElementById(checkId).style.display = 'inline-block';
+    }
+
+    function confirmSubscription(btn) {
+      if (confirm("Obuna bo‘ldingizmi?")) {
+        let balance = parseFloat(localStorage.getItem("balance")) || 0;
+        balance += 3;
+        localStorage.setItem("balance", balance.toFixed(4));
+        document.getElementById("balance").innerText = "Balans: " + balance.toFixed(4) + " UC";
+        btn.disabled = true;
+        btn.innerText = "Bajarilgan";
+      }
+    }
+
+    window.onload = function () {
+      let balance = parseFloat(localStorage.getItem("balance")) || 0;
+      document.getElementById("balance").innerText = "Balans: " + balance.toFixed(4) + " UC";
+    }
+  </script>
+
+  <div class="navbar">
+    <a href="index.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Uy">
+      Uy
+    </a>
+    <a href="missiya.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/3208/3208707.png" alt="Missiyalar">
+      Missiyalar
+    </a>
+    <a href="referal.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/10052/10052053.png" alt="Referal">
+      Referal
+    </a>
+    <a href="uc.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/1161/1161388.png" alt="UC">
+      UC
+    </a>
+  </div>
+</body>
+  </html>
