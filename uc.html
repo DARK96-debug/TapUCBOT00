@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UC chiqarish</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .uc-option {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      display: inline-block;
+      margin: 10px;
+    }
+
+    .uc-option:hover {
+      background-color: #45a049;
+    }
+
+    .input-field {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 18px;
+      width: 80%;
+      border-radius: 5px;
+      border: 1px solid #333;
+      background-color: #333;
+      color: white;
+    }
+
+    .submit-btn {
+      background-color: #2196F3;
+      color: white;
+      padding: 12px 20px;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      background-color: #0b79d1;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #111;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      border-top: 1px solid #333;
+      z-index: 999;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar img {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>UC chiqarish</h1>
+    <p>Minimal UC miqdori: 120 UC</p>
+
+    <!-- Miqdor tanlash -->
+    <div class="input-field">
+      <label for="uc-amount">UC miqdorini kiriting:</label>
+      <input type="number" id="uc-amount" placeholder="Miqdor kiriting (minimal 120 UC)" min="120">
+    </div>
+
+    <!-- PUBG ID kiriting -->
+    <div class="input-field">
+      <label for="pubg-id">PUBG ID:</label>
+      <input type="text" id="pubg-id" placeholder="PUBG ID kiriting">
+    </div>
+
+    <!-- Yuborish tugmasi -->
+    <button class="submit-btn" onclick="processRequest()">Yuborish</button>
+
+    <!-- Xatolik xabari -->
+    <div id="error-message" class="error-message"></div>
+  </div>
+
+  <div class="navbar">
+    <a href="index.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Uy">
+      Uy
+    </a>
+    <a href="missiya.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/3208/3208707.png" alt="Missiyalar">
+      Missiyalar
+    </a>
+    <a href="referal.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/10052/10052053.png" alt="Referal">
+      Referal
+    </a>
+    <a href="uc.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/1161/1161388.png" alt="UC">
+      UC
+    </a>
+  </div>
+
+  <script>
+    // Bu yerda foydalanuvchi hisobining UC balansini olishingiz kerak (backend dan)
+    let userBalance = 500;  // Bu yerda foydalanuvchining mavjud balansini saqlang (masalan, 500 UC)
+
+    function processRequest() {
+      const ucAmount = document.getElementById('uc-amount').value;
+      const pubgId = document.getElementById('pubg-id').value;
+      const errorMessageElement = document.getElementById('error-message');
+      
+      // Balansni tekshirish
+      if (!ucAmount || !pubgId) {
+        errorMessageElement.textContent = 'Iltimos, UC miqdori va PUBG ID ni kiriting!';
+        return;
+      }
+
+      // UC miqdori va balansni tekshirish
+      if (parseInt(ucAmount) < 120) {
+        errorMessageElement.textContent = 'UC miqdori minimal 120 UC bo\'lishi kerak!';
+        return;
+      }
+
+      if (parseInt(ucAmount) > userBalance) {
+        errorMessageElement.textContent = 'Balans yetarli emas!';
+        return;
+      }
+
+      // Yuborish muvaffaqiyatli
+      errorMessageElement.textContent = '';
+      userBalance -= parseInt(ucAmount);  // Foydalanuvchi balansidan UC yechiladi
+
+      // Backendga ma'lumot yuborilishi kerak (admin uchun)
+      const data = {
+        pubgId: pubgId,
+        ucAmount: ucAmount
+      };
+
+      fetch('https://your-backend-url.com/send-uc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('UC muvaffaqiyatli yuborildi!');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  </script>
+</body>
+      </html>
