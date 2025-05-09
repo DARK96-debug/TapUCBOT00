@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referal - XV Coin</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .referal-link {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+      display: inline-block;
+      margin: 10px 0;
+    }
+
+    .referal-link:hover {
+      background-color: #45a049;
+    }
+
+    .copy-button {
+      background-color: #2196F3;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .copy-button:hover {
+      background-color: #0b7dda;
+    }
+
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #111;
+      display: flex;
+      justify-content: space-around;
+      padding: 15px 0;
+      border-top: 1px solid #333;
+      z-index: 999;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .navbar img {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Referal Havolasi</h1>
+    <p>O'zingizning referal havolangizni bu yerda ko'rasiz:</p>
+
+    <!-- Referal havolasi -->
+    <input type="text" id="referal-link" value="http://t.me/TAPUC_1bot?start=YOUR_REFERRAL_ID" readonly class="referal-link">
+
+    <!-- Nusxalash tugmasi -->
+    <button class="copy-button" onclick="copyToClipboard()">Havolani nusxalash</button>
+
+    <p>Bu havolani boshqa odamlar bilan bo'lishing va 3 UC bonusini qo'lga kiriting!</p>
+  </div>
+
+  <div class="navbar">
+    <a href="index.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Uy">
+      Uy
+    </a>
+    <a href="missiya.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/3208/3208707.png" alt="Missiyalar">
+      Missiyalar
+    </a>
+    <a href="referal.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/10052/10052053.png" alt="Referal">
+      Referal
+    </a>
+    <a href="uc.html">
+      <img src="https://cdn-icons-png.flaticon.com/512/1161/1161388.png" alt="UC">
+      UC
+    </a>
+  </div>
+
+  <script>
+    function copyToClipboard() {
+      // Input elementini olish
+      var copyText = document.getElementById("referal-link");
+
+      // Input elementining qiymatini tanlash
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // Mobil qurilmalar uchun
+
+      // Nusxalashni bajarish
+      document.execCommand("copy");
+
+      // Foydalanuvchiga bildirish
+      alert("Havola nusxalandi: " + copyText.value);
+    }
+  </script>
+</body>
+  </html>
